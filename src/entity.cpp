@@ -23,7 +23,15 @@ namespace Direction
 
 Entity::Entity()
 {
-    shape = sf::CircleShape(5.0f);
+    shape = sf::CircleShape(15.0f);
+    velocity = {0.5, 0.5};
+    acceleration = {0.1, 0.1};
+}
+
+Entity::Entity(int num, const int& x, const int& y)
+{
+    shape = sf::CircleShape(5.0f, num);
+    //shape.setPosition({(float)x, (float)y});
     velocity = {0.05, 0.05};
     acceleration = {0.01, 0.01};
 }

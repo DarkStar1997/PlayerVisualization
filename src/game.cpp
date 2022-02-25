@@ -76,9 +76,11 @@ void Game::pollEvents()
 void Game::spawnEntities(size_t n)
 {
     entities.reserve(n);
+    std::uniform_int_distribution<int> spawn_position_x(0, window->getSize().x);
+    std::uniform_int_distribution<int> spawn_position_y(0, window->getSize().y);
     for(size_t i = 0; i < n; i++)
     {
-        entities.emplace_back();
+        entities.emplace_back(i % colors.size() + 1, spawn_position_x(rng), spawn_position_y(rng));
         entities.back().setColor(colors[i % colors.size()]);
     }
     direction = std::vector<uint8_t>(entities.size(), 0);
@@ -90,7 +92,7 @@ void Game::update()
     if(endGame == false)
     {
         // update direction every 0.1 seconds
-        if(direction_clock.getElapsedTime().asSeconds() >= 0.5)
+        if(direction_clock.getElapsedTime().asSeconds() >= 0.1)
         {
             direction = std::vector<uint8_t>(entities.size(), 0);
             for(size_t i = 0; i < entities.size(); i++)
