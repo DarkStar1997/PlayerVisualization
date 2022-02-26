@@ -16,12 +16,12 @@ namespace Direction
 class Entity
 {
 private:
-    sf::CircleShape shape;
     sf::Vector2f velocity;
     sf::Vector2f acceleration;
     void updateWindowBoundsCollision(const sf::RenderTarget * target);
 public:
     Entity(int num, const int& x, const int& y);
+    sf::CircleShape shape;
     void draw(sf::RenderTarget * target);
     void move(const uint8_t & direction, const sf::RenderTarget * target, const float & dTime);
     void moveUp(const float & dTime);

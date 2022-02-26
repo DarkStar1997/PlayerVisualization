@@ -1,14 +1,14 @@
 #include <memory>
 #include <SFML/Graphics.hpp>
-#include <entity.hpp>
 #include <random>
 #include <vector>
+
+class Entity;
 
 class Game
 {
 private:
     sf::RenderWindow * window;
-    sf::Clock direction_clock;
     std::vector<uint8_t> direction;
     bool endGame;
     sf::Event event;
@@ -23,6 +23,7 @@ public:
     Game();
     ~Game();
     sf::Clock clock;
+    sf::Clock direction_clock;
     sf::Time deltaTime;
     std::vector<Entity> entities;
     const bool running() const;

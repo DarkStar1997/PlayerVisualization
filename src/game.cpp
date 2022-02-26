@@ -2,6 +2,7 @@
 #include <game.hpp>
 #include <fmt/core.h>
 #include <fmt/ranges.h>
+#include <entity.hpp>
 
 Game::Game()
 {
@@ -9,7 +10,6 @@ Game::Game()
     this->initWindow();
     rng.seed(std::random_device()());
     direction_gen = std::uniform_int_distribution<uint8_t>(0, 1);
-    direction_clock.restart();
 }
 
 Game::~Game()
@@ -27,7 +27,7 @@ void Game::initWindow()
     sf::ContextSettings settings;
     settings.antialiasingLevel = 8;
     this->window = new sf::RenderWindow(sf::VideoMode(), "Game", sf::Style::Fullscreen, settings);
-    //this->window->setFramerateLimit(60);
+    this->window->setFramerateLimit(60);
 }
 
 const bool Game::running() const
@@ -43,7 +43,6 @@ const bool Game::getEndGame() const
 void Game::render()
 {
     this->window->clear();
-    //this->entity.draw(window);
     for(auto& entity : entities) entity.draw(window);
     this->window->display();
 }
@@ -97,14 +96,38 @@ void Game::update()
             direction = std::vector<uint8_t>(entities.size(), 0);
             for(size_t i = 0; i < entities.size(); i++)
             {
-                uint8_t tmp = direction_gen(rng);
+                uint8_t tmp = 0, restricted_directions = 0;
+                // stuck in left boundary
+                if(entities[i].shape.getPosition().x <= 0.0f)
+                {
+                    restricted_directions |= Direction::left;
+                }
+                // stuck in right boundary
+                else if (entities[i].shape.getPosition().x + entities[i].shape.getGlobalBounds().width >= window->getSize().x)
+                {
+                    restricted_directions |= Direction::right;
+                }
+                // stuck in top boundary
+                if (entities[i].shape.getPosition().y <= 0.f)
+                {
+                    restricted_directions |= Direction::up;
+                }
+                // stuck in bottom boundary
+                else if (entities[i].shape.getPosition().y + entities[i].shape.getGlobalBounds().height >= window->getSize().y)
+                {
+                    restricted_directions |= Direction::down;
+                }
+                
+                tmp = direction_gen(rng);
                 direction[i] = direction[i] | (tmp == 1 ? Direction::up : Direction::down);
                 tmp = direction_gen(rng);
                 direction[i] = direction[i] | (tmp == 1 ? Direction::left : Direction::right);
+                
+                direction[i] &= ~restricted_directions;
             }
             direction_clock.restart();
         }
         for(size_t i = 0; i < entities.size(); i++)
-            entities[i].move(direction[i], window, (float)deltaTime.asSeconds());
+            entities[i].move(direction[i], window, (float)deltaTime.asMilliseconds());
     }
 }

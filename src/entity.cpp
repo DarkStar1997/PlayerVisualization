@@ -23,11 +23,11 @@ namespace Direction
 
 Entity::Entity(int num, const int& x, const int& y)
 {
-    const float initialSize = 5.0f;
+    const float initialSize = 10.0f;
     shape = num >= 3 ? sf::CircleShape(initialSize, num) : sf::CircleShape(initialSize);
-    //shape.setPosition({(float)x, (float)y});
-    velocity = {1, 1};
-    acceleration = {1, 1};
+    shape.setPosition({(float)x, (float)y});
+    velocity = {4, 4};
+    acceleration = {0.001, 0.001};
 }
 
 void Entity::draw(sf::RenderTarget * target)
@@ -65,48 +65,49 @@ void Entity::move(const uint8_t& direction, const sf::RenderTarget * target, con
 void Entity::moveUp(const float & dTime)
 {
     shape.move({0, -std::abs(velocity.y)});
-    shape.setPosition({shape.getPosition().x, shape.getPosition().y - velocity.y * dTime});
 }
 
 void Entity::moveDown(const float & dTime)
 {
     shape.move({0, std::abs(velocity.y)});
-    //shape.setPosition({shape.getPosition().x, shape.getPosition().y + velocity.y * dTime});
 }
 
 void Entity::moveLeft(const float & dTime)
 {
     shape.move({-std::abs(velocity.x), 0});
-    //shape.setPosition({(float)shape.getPosition().x + (velocity.x * dTime), (float)shape.getPosition().y});
 }
 
 void Entity::moveRight(const float & dTime)
 {
     shape.move({std::abs(velocity.x), 0});
-    //shape.setPosition({(float)shape.getPosition().x + velocity.x * dTime, (float)shape.getPosition().y});
 }
 
 void Entity::updateWindowBoundsCollision(const sf::RenderTarget * target)
 {
-	//Left
+	uint8_t tmp_direction = 0;
+    //Left
 	if (this->shape.getPosition().x < 0.f)
     {
         shape.setPosition({0.f, shape.getPosition().y});
+        tmp_direction |= Direction::right;
     }
 	//Right
 	if (shape.getPosition().x + shape.getGlobalBounds().width > target->getSize().x)
     {
         shape.setPosition({target->getSize().x - shape.getGlobalBounds().width, shape.getPosition().y});
+        tmp_direction |= Direction::left;
     }
 	//Top
 	if (shape.getPosition().y < 0.f)
     {
         shape.setPosition({shape.getPosition().x, 0.f});
+        tmp_direction |= Direction::down;
     }
 	//Bottom
 	if (shape.getPosition().y + shape.getGlobalBounds().height > target->getSize().y)
     {
         shape.setPosition({shape.getPosition().x, (float)target->getSize().y - shape.getGlobalBounds().height});
+        tmp_direction |= Direction::up;
     }
 }
 

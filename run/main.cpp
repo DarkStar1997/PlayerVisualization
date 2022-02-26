@@ -5,8 +5,9 @@
 int main()
 {
     Game game;
-    game.spawnEntities(50000);
+    game.spawnEntities(1000);
     game.clock.restart();
+    game.direction_clock.restart();
     while(game.running() && !game.getEndGame())
     {
         game.deltaTime = game.clock.restart();
