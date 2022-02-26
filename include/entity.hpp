@@ -20,11 +20,8 @@ private:
     sf::Vector2f velocity;
     sf::Vector2f acceleration;
     void updateWindowBoundsCollision(const sf::RenderTarget * target);
-    void updateInput(const float & dTime);
 public:
-    Entity();
     Entity(int num, const int& x, const int& y);
-    void update(const sf::RenderTarget * target, const float & dTime);
     void draw(sf::RenderTarget * target);
     void move(const uint8_t & direction, const sf::RenderTarget * target, const float & dTime);
     void moveUp(const float & dTime);

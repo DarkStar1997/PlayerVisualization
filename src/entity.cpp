@@ -21,19 +21,13 @@ namespace Direction
     uint8_t left = 0x08;
 };
 
-Entity::Entity()
-{
-    shape = sf::CircleShape(15.0f);
-    velocity = {0.5, 0.5};
-    acceleration = {0.1, 0.1};
-}
-
 Entity::Entity(int num, const int& x, const int& y)
 {
-    shape = sf::CircleShape(5.0f, num);
+    const float initialSize = 5.0f;
+    shape = num >= 3 ? sf::CircleShape(initialSize, num) : sf::CircleShape(initialSize);
     //shape.setPosition({(float)x, (float)y});
-    velocity = {0.05, 0.05};
-    acceleration = {0.01, 0.01};
+    velocity = {1, 1};
+    acceleration = {1, 1};
 }
 
 void Entity::draw(sf::RenderTarget * target)
@@ -90,44 +84,6 @@ void Entity::moveRight(const float & dTime)
 {
     shape.move({std::abs(velocity.x), 0});
     //shape.setPosition({(float)shape.getPosition().x + velocity.x * dTime, (float)shape.getPosition().y});
-}
-
-void Entity::update(const sf::RenderTarget * target, const float & dTime)
-{
-    updateInput(dTime);
-    updateWindowBoundsCollision(target);
-}
-
-void Entity::updateInput(const float & dTime)
-{
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-    {
-        fmt::print("pos_x: {} pos_y: {}\n", shape.getPosition().x, shape.getPosition().y);
-        fmt::print("v_x: {} v_y: {}\n", velocity.x, velocity.y);
-    }
-    
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        velocity.y -= (acceleration.y * dTime);
-        moveUp(dTime);
-    }
-
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        velocity.y += (acceleration.y * dTime);
-        moveDown(dTime);
-    }
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        velocity.x += (acceleration.x * dTime);
-        moveRight(dTime);
-    }
-    else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        velocity.x -= (acceleration.x * dTime);
-        moveLeft(dTime);
-    }
 }
 
 void Entity::updateWindowBoundsCollision(const sf::RenderTarget * target)

@@ -80,7 +80,7 @@ void Game::spawnEntities(size_t n)
     std::uniform_int_distribution<int> spawn_position_y(0, window->getSize().y);
     for(size_t i = 0; i < n; i++)
     {
-        entities.emplace_back(i % colors.size() + 1, spawn_position_x(rng), spawn_position_y(rng));
+        entities.emplace_back(i % colors.size() + 2, spawn_position_x(rng), spawn_position_y(rng));
         entities.back().setColor(colors[i % colors.size()]);
     }
     direction = std::vector<uint8_t>(entities.size(), 0);
@@ -104,11 +104,7 @@ void Game::update()
             }
             direction_clock.restart();
         }
-        //entities[0].update(window, 1);
         for(size_t i = 0; i < entities.size(); i++)
-            entities[i].move(direction[i], window, 1);
-        //entity.move(direction, window, 1);
-        //entity.update(window, 1);
-        //entity.update(window, deltaTime.asSeconds());
+            entities[i].move(direction[i], window, (float)deltaTime.asSeconds());
     }
 }
