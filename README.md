@@ -26,8 +26,4 @@ This project uses [SFML](https://github.com/SFML/SFML) for rendering. It's downl
 
 1. It's highly recommended to use Ninja as the build system for faster incremental builds. To do so, install ninja for your distribution and then modify the cmake generation command to `cmake -GNinja -S . -B build/`
 
-<![![Entity Visualization](http://img.youtube.com/vi/_YiR8NbAGhk/0.jpg)](http://www.youtube.com/watch?v=_YiR8NbAGhk "Entity Visualization")>
-
-<figure class="video_container">
-  <iframe src="https://www.youtube.com/embed/_YiR8NbAGhk" frameborder="0" allowfullscreen="true"> </iframe>
-</figure>
+[![Entity Visualization](http://img.youtube.com/vi/_YiR8NbAGhk)](http://www.youtube.com/watch?v=_YiR8NbAGhk "Entity Visualization")
