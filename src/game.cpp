@@ -72,14 +72,17 @@ void Game::pollEvents()
     }
 }
 
-void Game::spawnEntities(size_t n)
+void Game::spawnEntities(size_t n, bool isRandom, float size)
 {
     entities.reserve(n);
     std::uniform_int_distribution<int> spawn_position_x(0, window->getSize().x);
     std::uniform_int_distribution<int> spawn_position_y(0, window->getSize().y);
     for(size_t i = 0; i < n; i++)
     {
-        entities.emplace_back(i % colors.size() + 2, spawn_position_x(rng), spawn_position_y(rng));
+        if(isRandom)
+            entities.emplace_back(i % colors.size() + 2, spawn_position_x(rng), spawn_position_y(rng), size);
+        else
+            entities.emplace_back(i % colors.size() + 2, 0, 0, size);
         entities.back().setColor(colors[i % colors.size()]);
     }
     direction = std::vector<uint8_t>(entities.size(), 0);

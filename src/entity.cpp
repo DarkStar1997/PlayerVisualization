@@ -21,10 +21,9 @@ namespace Direction
     uint8_t left = 0x08;
 };
 
-Entity::Entity(int num, const int& x, const int& y)
+Entity::Entity(int num, const int& x, const int& y, float size)
 {
-    const float initialSize = 10.0f;
-    shape = num >= 3 ? sf::CircleShape(initialSize, num) : sf::CircleShape(initialSize);
+    shape = num >= 3 ? sf::CircleShape(size, num) : sf::CircleShape(size);
     shape.setPosition({(float)x, (float)y});
     velocity = {4, 4};
     acceleration = {0.001, 0.001};

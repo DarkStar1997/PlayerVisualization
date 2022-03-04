@@ -20,7 +20,7 @@ private:
     sf::Vector2f acceleration;
     void updateWindowBoundsCollision(const sf::RenderTarget * target);
 public:
-    Entity(int num, const int& x, const int& y);
+    Entity(int num, const int& x, const int& y, float size);
     sf::CircleShape shape;
     void draw(sf::RenderTarget * target);
     void move(const uint8_t & direction, const sf::RenderTarget * target, const float & dTime);

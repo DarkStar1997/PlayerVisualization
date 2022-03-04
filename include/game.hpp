@@ -30,5 +30,5 @@ public:
     const bool getEndGame() const;
     void update();
     void render();
-    void spawnEntities(size_t n);
+    void spawnEntities(size_t n, bool isRandom = true, float size = 10.0);
 };

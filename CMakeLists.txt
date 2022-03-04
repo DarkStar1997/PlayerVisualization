@@ -25,6 +25,22 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(sfml)
 
+FetchContent_Declare(
+    fmtlib
+    GIT_REPOSITORY "https://github.com/fmtlib/fmt"
+    GIT_TAG 5c0d65640118e7e0b1350f28fab3243fd6ce35a0
+    GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(fmtlib)
+
+FetchContent_Declare(
+    argh
+    GIT_REPOSITORY "https://github.com/adishavit/argh"
+    GIT_TAG 01b6a4a3b0991dc2f29e4ab55eb7da90c8189f80
+    GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(argh)
+
 set(LIB_NAME "ecosystem_viz")
 
 add_subdirectory(src)
