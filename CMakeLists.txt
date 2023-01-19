@@ -17,10 +17,14 @@ set(CMAKE_BUILD_TYPE "RELEASE")
 
 include(FetchContent)
 set(FETCHCONTENT_QUIET FALSE)
+get_filename_component(fc_cache "../.fetchcontent_cache"
+                       REALPATH BASE_DIR "${CMAKE_BINARY_DIR}")
+set(FETCHCONTENT_BASE_DIR ${fc_cache})
 
 FetchContent_Declare(
     sfml
     GIT_REPOSITORY https://github.com/SFML/SFML
+    GIT_TAG 2.5.1
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(sfml)
@@ -40,6 +44,14 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(argh)
+
+FetchContent_Declare(
+    box2d
+    GIT_REPOSITORY "https://github.com/erincatto/box2d"
+    GIT_TAG 9dc24a6fd4f32442c4bcf80791de47a0a7d25afb
+    GIT_PROGRESS TRUE
+)
+FetchContent_MakeAvailable(box2d)
 
 set(LIB_NAME "ecosystem_viz")
 
