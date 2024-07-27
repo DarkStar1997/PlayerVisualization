@@ -53,9 +53,10 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(box2d)
 
-set(LIB_NAME "ecosystem_viz")
+set(LIB_NAME "SFMLGameLib")
 
 add_subdirectory(src)
 add_subdirectory(run)
 
-export(EXPORT PlayerVizTargets NAMESPACE RMG FILE "${CMAKE_CURRENT_BINARY_DIR}/PlayerVizTargets.cmake")
+export(EXPORT SFMLGameConfig NAMESPACE SFMLGame FILE "${CMAKE_CURRENT_BINARY_DIR}/SFMLGameConfig.cmake")
+install(EXPORT SFMLGameConfig FILE SFMLGameConfig.cmake DESTINATION lib/cmake/SFMLGame)
