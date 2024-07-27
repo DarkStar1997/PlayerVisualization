@@ -57,3 +57,5 @@ set(LIB_NAME "ecosystem_viz")
 
 add_subdirectory(src)
 add_subdirectory(run)
+
+export(EXPORT PlayerVizTargets NAMESPACE RMG FILE "${CMAKE_CURRENT_BINARY_DIR}/PlayerVizTargets.cmake")
