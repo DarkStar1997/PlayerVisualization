@@ -24,7 +24,7 @@ set(FETCHCONTENT_BASE_DIR ${fc_cache})
 FetchContent_Declare(
     sfml
     GIT_REPOSITORY https://github.com/SFML/SFML
-    GIT_TAG 2.5.1
+    GIT_TAG 2.6.1
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(sfml)
